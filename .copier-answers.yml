@@ -1,0 +1,13 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 213f8e1
+_src_path: https://gitlab.com/gemseo/dev/copier-gemseo
+author_email: ''
+author_name: Capgemini
+gemseo_min_version: '6'
+package_is_a_gemseo_plugin: false
+project_is_open_source: false
+project_name: header-hook
+project_name_suffix: header-hook
+project_slug: header_hook
+short_description: Pre-commit hook to update the headers of SoSTrades files
+use_gemseo_develop: false
