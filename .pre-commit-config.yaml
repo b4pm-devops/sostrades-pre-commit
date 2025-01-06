@@ -63,6 +63,6 @@ repos:
   rev: v1.5.5
   hooks:
     - id: insert-license
-      name: insert LGPL license
+      name: insert Capgemini license
       exclude: ^docs
       files: \.py$
