@@ -1,8 +1,5 @@
 [project]
 name = "header-hook"
-authors = [
-    {name = "Capgemini", email = ""}
-]
 description = "Pre-commit hook to update the headers of SoSTrades files"
 classifiers = [
     "Intended Audience :: Science/Research",
