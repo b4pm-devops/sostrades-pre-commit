@@ -3,6 +3,7 @@ unsafe-fixes = true
 preview = true
 target-version = "py39"
 src = ["src"]
+line-length = 120
 
 [lint]
 task-tags = ["TODO"]
