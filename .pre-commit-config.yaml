@@ -5,7 +5,7 @@ repos:
   hooks:
     - id: trailing-whitespace
     - id: end-of-file-fixer
-      exclude: src/header_hook/headers/
+      exclude: src/header_hook/apache_license.txt|LICENSE.txt
     - id: check-yaml
       # !reference is specific to gitlab
       # !! prefix is specific to mkdocs
@@ -66,6 +66,3 @@ repos:
       name: insert LGPL license
       exclude: ^docs
       files: \.py$
-      args:
-        - --license-filepath
-        - src/header_hook/headers/cap_header.txt

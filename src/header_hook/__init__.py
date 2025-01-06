@@ -15,3 +15,8 @@
 """The pre-commit hook to update headers."""
 
 from __future__ import annotations
+
+from pathlib import Path
+
+APACHE_LICENSE_PATH: Path = Path(__file__).parent / "apache_license.txt"
+"""The Capgemini header template file."""
