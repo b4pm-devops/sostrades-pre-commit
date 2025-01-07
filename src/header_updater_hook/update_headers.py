@@ -23,7 +23,8 @@ from datetime import datetime
 from pathlib import Path
 
 from git import Repo
-from header_hook import APACHE_LICENSE_PATH
+
+from header_updater_hook import APACHE_LICENSE_PATH
 
 
 class HeaderUpdater:
