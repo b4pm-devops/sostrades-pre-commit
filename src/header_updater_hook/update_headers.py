@@ -36,7 +36,7 @@ class HeaderUpdater:
     CAP_COPYRIGHT: str = "Copyright {} Capgemini"
     """The Capgemini copyright line, without the year."""
 
-    HEADER_PATTERN: str = "'''\n{}\n'''"
+    HEADER_PATTERN: str = "'''\n{}\n'''\n"
     """The expected header pattern."""
 
     MODIFICATIONS_PATTERN = "Modifications on {}"
@@ -86,8 +86,8 @@ class HeaderUpdater:
         repo_dir = Path.cwd()
         repo = Repo(repo_dir)
         diff = repo.head.commit.diff(None)
-        added = [*diff.iter_change_type("A")]
-        modified = [*diff.iter_change_type("M")]
+        added = [item.a_path for item in diff.iter_change_type("A")]
+        modified = [item.a_path for item in diff.iter_change_type("M")]
         files_were_changed = False
 
         for file_name in filenames:
@@ -96,8 +96,7 @@ class HeaderUpdater:
                 files_were_changed += self.check_header_added(file_path)
             elif file_name in modified:
                 files_were_changed += self.check_header_modified(file_path)
-            return int(files_were_changed)
-        return None
+        return int(files_were_changed)
 
     def check_header_added(self, file_path: Path) -> bool:
         """Check the header for an added file and change it if needed.
@@ -108,11 +107,12 @@ class HeaderUpdater:
         Returns:
             Whether the file was changed.
         """
-        with file_path.open("w+") as f:
+        with file_path.open() as f:
             file_content = f.read()
-            if file_content.startswith(self.cap_header):
-                return False
-            new_file_content = self.cap_header + file_content
+        if file_content.startswith(self.cap_header):
+            return False
+        new_file_content = self.cap_header + file_content
+        with file_path.open("w") as f:
             f.write(new_file_content)
         return True
 
@@ -128,13 +128,14 @@ class HeaderUpdater:
         Returns:
             Whether the file was changed.
         """
-        with file_path.open("w+") as f:
+        with file_path.open() as f:
             file_content = f.read()
-        if file_content.startswith(self.airbus_header):
-            new_file_content = file_content.replace(self.airbus_header, self.modified_header)
+        if not file_content.startswith(self.airbus_header):
+            return False
+        new_file_content = file_content.replace(self.airbus_header, self.modified_header)
+        with file_path.open("w") as f:
             f.write(new_file_content)
-            return True
-        return False
+        return True
 
 
 def main() -> int:
