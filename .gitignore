@@ -2,7 +2,7 @@
 /dist
 /.tox
 *.pyc
-/src/header_hook.egg-info
+/src/header_updater_hook.egg-info
 
 /.project
 /.pydevproject
