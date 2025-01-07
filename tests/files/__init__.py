@@ -13,20 +13,3 @@
 # limitations under the License.
 
 """The files for the HeaderUpdater tests."""
-
-from pathlib import Path
-
-FILES_DIR = Path.cwd()
-"""The directory containing the test input files."""
-
-EXPECTED_FILES_DIR = FILES_DIR / "expected"
-"""The directory containing the templates for the expected modified files."""
-
-AIRBUS_HEADER_FILE = "airbus_header.py"
-"""The file with an original Airbus header."""
-
-NO_HEADER_FILE = "no_header.py"
-"""The file with no header."""
-
-CORRECT_FILES = ["cap_header.py", "modified_header.py"]
-"""The files with correct headers that shall be left unchanged."""
