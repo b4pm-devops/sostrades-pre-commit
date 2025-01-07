@@ -45,6 +45,9 @@ doc = [
 file = "README.md"
 content-type = "text/markdown"
 
+[project.scripts]
+update-headers = "header_updater_hook.update_headers:main"
+
 [build-system]
 requires = [
     "setuptools",

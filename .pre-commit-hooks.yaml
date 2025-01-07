@@ -1,0 +1,5 @@
+- id: update-headers
+  name: Update file headers
+  entry: update-headers
+  language: python
+  types: [python]
