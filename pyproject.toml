@@ -1,6 +1,6 @@
 [project]
-name = "header-hook"
-description = "Pre-commit hook to update the headers of SoSTrades files"
+name = "header-updater-hook"
+description = "Pre-commit hook to update the headers of SoSTrades files."
 classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",
