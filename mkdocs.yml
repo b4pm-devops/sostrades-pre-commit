@@ -1,7 +1,7 @@
-site_name: header-hook
-site_url: https://gemseo.gitlab.io/header-hook
-repo_url: https://gitlab.com/gemseo/dev/header-hook
-repo_name: header-hook
+site_name: sostrades-pre-commit
+site_url: https://gemseo.gitlab.io/sostrades-pre-commit
+repo_url: https://gitlab.com/gemseo/dev/sostrades-pre-commit
+repo_name: sostrades-pre-commit
 
 theme:
   name: material
@@ -86,7 +86,7 @@ nav:
   - Licenses: licenses.md
 - User guide: user_guide/
 # - Examples:
-- API documentation: reference/header_hook/
+- API documentation: reference/sostrades_pre_commit/
 
 markdown_extensions:
 - admonition
@@ -111,7 +111,7 @@ extra_javascript:
 - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 watch:
-  - src/header_hook
+  - src/sostrades_pre_commit
   - README.md
   - CHANGELOG.md
 

@@ -24,7 +24,7 @@ from pathlib import Path
 
 from git import Repo
 
-from header_updater_hook import APACHE_LICENSE_PATH
+from sostrades_pre_commit import APACHE_LICENSE_PATH
 
 
 class HeaderUpdater:

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""The pre-commit hook to update headers."""
+"""The pre-commit hooks for SoSTrades development."""
 
 from __future__ import annotations
 

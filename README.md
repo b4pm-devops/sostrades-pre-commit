@@ -1,16 +1,16 @@
 
 
-# header-hook
+# sostrades-pre-commit
 
 
 
 ## Overview
 
-Pre-commit hook to update the headers of SoSTrades files
+Pre-commit hooks for SoSTrades development.
 
 ## Installation
 
-Install the latest version with `pip install header-hook`.
+Install the latest version with `pip install sostrades-pre-commit`.
 
 See [pip](https://pip.pypa.io/en/stable/getting-started/) for more information.
 

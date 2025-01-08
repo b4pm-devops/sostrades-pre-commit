@@ -6,8 +6,8 @@ author_name: Capgemini
 gemseo_min_version: '6'
 package_is_a_gemseo_plugin: false
 project_is_open_source: false
-project_name: header-hook
-project_name_suffix: header-hook
-project_slug: header_hook
-short_description: Pre-commit hook to update the headers of SoSTrades files
+project_name: sostrades-pre-commit
+project_name_suffix: sostrades-pre-commit
+project_slug: sostrades_pre_commit
+short_description: Pre-commit hooks for SoSTrades development.
 use_gemseo_develop: false

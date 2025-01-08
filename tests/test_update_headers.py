@@ -20,7 +20,7 @@ from shutil import copy
 
 import pytest
 
-from header_updater_hook.update_headers import HeaderUpdater
+from sostrades_pre_commit.update_headers import HeaderUpdater
 
 FILES_DIR = Path(__file__).parent / "files"
 """The directory containing the test input files."""

@@ -1,6 +1,6 @@
 [project]
-name = "header-updater-hook"
-description = "Pre-commit hook to update the headers of SoSTrades files."
+name = "sostrades-pre-commit"
+description = "Pre-commit hooks for SoSTrades development."
 classifiers = [
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",
@@ -46,7 +46,7 @@ file = "README.md"
 content-type = "text/markdown"
 
 [project.scripts]
-update-headers = "header_updater_hook.update_headers:main"
+update-headers = "sostrades_pre_commit.update_headers:main"
 
 [build-system]
 requires = [
