@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 '''
-# A file with an original Airbus header. Must be modified by the hook.
+# A file with an original Airbus header. Must be modified by the HeaderUpdater.
 
 
 def some_function() -> None:
