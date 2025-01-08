@@ -145,4 +145,4 @@ def main() -> int:
     args = parser.parse_args()
     header_updater = HeaderUpdater()
     files_were_modified = header_updater.update_headers(args.filenames)
-    exit(int(not files_were_modified))
+    exit(int(files_were_modified))
