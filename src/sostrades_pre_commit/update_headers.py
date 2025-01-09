@@ -21,6 +21,7 @@ from argparse import ArgumentParser
 from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
+from re import search
 
 from git import Repo
 
@@ -51,8 +52,8 @@ class HeaderUpdater:
     modified_header: str
     """The Airbus header with the additional `Modifications...` line."""
 
-    start_modif_pattern: str
-    """The beginning of the `modified` header for already modified Airbus files."""
+    start_modif_regex: str
+    """The regex to match the beginning of the `modified` header for already modified Airbus files."""
 
     updated_modified_pattern: str
     """The pattern for the `Modifications on...` line
@@ -71,7 +72,7 @@ class HeaderUpdater:
         self.airbus_header = self.HEADER_PATTERN.format(airbus_license)
 
         # Set the beginning of the `modified` pattern for matching
-        self.start_modif_pattern = f"'''\n{self.AIRBUS_COPYRIGHT}\n{self.MODIFICATIONS_PATTERN.format('')}"
+        self.start_modif_regex = f"{self.MODIFICATIONS_PATTERN.format('(.+)')} {self.CAP_COPYRIGHT.format('20(..)')}"
 
         # Set the Capgemini headers with the current date/year
         today = datetime.today().strftime("%Y/%m/%d")
@@ -148,11 +149,11 @@ class HeaderUpdater:
             file_content = f.read()
         if file_content.startswith(self.airbus_header):
             new_file_content = file_content.replace(self.airbus_header, self.modified_header)
-        elif file_content.startswith(self.start_modif_pattern):
-            lines = file_content.split("\n")
-            first_modif_date = lines[2].split(" ")[2].split("-")[0]
-            lines[2] = self.updated_modified_pattern.format(first_modif_date)
-            new_file_content = "\n".join(lines)
+        elif re_match := search(pattern=self.start_modif_regex, string=file_content):
+            modif_line = re_match.group(0)
+            first_modif_date = modif_line.split(" ")[2].split("-")[0]
+            updated_modif_line = self.updated_modified_pattern.format(first_modif_date)
+            new_file_content = file_content.replace(modif_line, updated_modif_line)
         else:
             return False
         with file_path.open("w") as f:
