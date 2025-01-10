@@ -96,7 +96,7 @@ def test_update_header_cap_file(header_updater, tmp_path) -> None:
         assert f.read() == expected_output
 
 
-def test_update_header_modified_file(header_updater: HeaderUpdater, today, year, tmp_path) -> None:
+def test_update_header_modified_file(header_updater, today, year, tmp_path) -> None:
     """Check that a modified file with Airbus header is correctly updated."""
     tmp_file = tmp_path / AIRBUS_HEADER_FILE
     copy(FILES_DIR / AIRBUS_HEADER_FILE, tmp_file)
@@ -109,7 +109,7 @@ def test_update_header_modified_file(header_updater: HeaderUpdater, today, year,
 
 
 @pytest.mark.parametrize("filename", [MODIFIED_HEADER_SINGLE_DATE_FILE, MODIFIED_HEADER_TWO_DATES_FILE])
-def test_update_header_modified_files(header_updater: HeaderUpdater, today, year, filename, tmp_path) -> None:
+def test_update_header_modified_files(header_updater, today, year, filename, tmp_path) -> None:
     """Check that files with modified headers are correctly updated."""
     tmp_file = tmp_path / filename
     copy(FILES_DIR / filename, tmp_file)
@@ -117,5 +117,19 @@ def test_update_header_modified_files(header_updater: HeaderUpdater, today, year
         expected_output = f.read().format(today, year)
     file_was_modified = header_updater.check_header_modified(tmp_file)
     assert file_was_modified
+    with tmp_file.open() as f:
+        assert f.read() == expected_output
+
+
+def test_update_header_modified_files_correct(header_updater, today, year, tmp_path) -> None:
+    """Check that a file with a modified header with the correct date is left
+    unchanged."""
+    tmp_file = tmp_path / MODIFIED_HEADER_EXPECTED_FILE
+    with (EXPECTED_FILES_DIR / MODIFIED_HEADER_EXPECTED_FILE).open() as f:
+        expected_output = f.read().format(today, year)
+    with tmp_file.open("w") as f:
+        f.write(expected_output)
+    file_was_modified = header_updater.check_header_modified(tmp_file)
+    assert not file_was_modified
     with tmp_file.open() as f:
         assert f.read() == expected_output

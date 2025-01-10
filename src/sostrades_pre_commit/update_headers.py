@@ -53,7 +53,11 @@ class HeaderUpdater:
     """The Airbus header with the additional `Modifications...` line."""
 
     start_modif_regex: str
-    """The regex to match the beginning of the `modified` header for already modified Airbus files."""
+    """The regex to match the beginning of the `modified` header for already modified
+    Airbus files."""
+
+    today: str
+    """Today's date in the Y/m/d format."""
 
     updated_modified_pattern: str
     """The pattern for the `Modifications on...` line
@@ -75,16 +79,16 @@ class HeaderUpdater:
         self.start_modif_regex = f"{self.MODIFICATIONS_PATTERN.format('(.+)')} {self.CAP_COPYRIGHT.format('20(..)')}"
 
         # Set the Capgemini headers with the current date/year
-        today = datetime.today().strftime("%Y/%m/%d")
+        self.today = datetime.today().strftime("%Y/%m/%d")
         current_year = datetime.today().strftime("%Y")
         new_cap_copyright = self.CAP_COPYRIGHT.format(current_year)
         cap_license = f"{new_cap_copyright}\n\n{apache_license}"
         self.cap_header = self.HEADER_PATTERN.format(cap_license)
-        modif_line = f"{self.MODIFICATIONS_PATTERN.format(today)} {new_cap_copyright}"
+        modif_line = f"{self.MODIFICATIONS_PATTERN.format(self.today)} {new_cap_copyright}"
         modif_license_lines = [self.AIRBUS_COPYRIGHT, modif_line, "", apache_license]
         modified_license = "\n".join(modif_license_lines)
         self.modified_header = self.HEADER_PATTERN.format(modified_license)
-        modification_dates_pattern = "{}-" + today
+        modification_dates_pattern = "{}-" + self.today
         self.updated_modified_pattern = (
             f"{self.MODIFICATIONS_PATTERN.format(modification_dates_pattern)} {new_cap_copyright}"
         )
@@ -136,7 +140,7 @@ class HeaderUpdater:
         """Check the header for a modified file and changes it if needed.
 
         If the file has the original Airbus header, replace it with the `modified` header.
-        If it already has a `modified` header, update the modification dates and copyright.
+        If it already has a `modified` header with an older date, update the modification dates and copyright.
         Else, change nothing.
 
         Args:
@@ -151,7 +155,12 @@ class HeaderUpdater:
             new_file_content = file_content.replace(self.airbus_header, self.modified_header)
         elif re_match := search(pattern=self.start_modif_regex, string=file_content):
             modif_line = re_match.group(0)
-            first_modif_date = modif_line.split(" ")[2].split("-")[0]
+            modif_dates = modif_line.split(" ")[2].split("-")
+            first_modif_date = modif_dates[0]
+            second_modif_date = modif_dates[1] if len(modif_dates) > 1 else None
+            if second_modif_date == self.today:
+                # Header is already up to date; do nothing
+                return False
             updated_modif_line = self.updated_modified_pattern.format(first_modif_date)
             new_file_content = file_content.replace(modif_line, updated_modif_line)
         else:
